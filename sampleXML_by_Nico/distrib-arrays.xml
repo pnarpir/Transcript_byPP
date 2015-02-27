@@ -89,8 +89,8 @@
       </initialAssignment>
     </listOfInitialAssignments>
     <listOfParameters>
-      <!-- Set size n=10 -->
-      <parameter id="n" value="10"/>
+      <!-- Set size n=100 -->
+      <parameter id="n" value="100"/>
       <!-- Set array parameters X[i]=5.7 for all i=1,...,10 -->
       <parameter id="X" > <!-- parameter X[n] (array of size n=10), each element of the array is initialised by a random value taken from a poisson distribution -->
 	<arrays:listOfDimensions>
