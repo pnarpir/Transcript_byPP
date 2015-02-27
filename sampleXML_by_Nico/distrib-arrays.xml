@@ -1,0 +1,105 @@
+
+<sbml xmlns="http://www.sbml.org/sbml/level3/version1/core" level="3" version="1"
+      xmlns:arrays="http://www.sbml.org/sbml/level3/version1/arrays/version1" arrays:required="true" xmlns:distrib="http://www.sbml.org/sbml/level3/version1/distrib/version1"
+      distrib:required="true">
+  <model>
+    <listOfFunctionDefinitions> 
+      <functionDefinition id="normal"> 
+	<notes><p>This is a normal distribution</p>
+	</notes>
+	<annotation>
+	  <copasi>...</copasi>
+	  <ibiosim>...</ibiosim>
+	</annotation>
+	<math xmlns="http://www.w3.org/1998/Math/MathML"> 
+	  <lambda> 
+	    <bvar> 
+	      <ci> mean </ci> 
+	    </bvar> 
+	    <bvar> 
+	      <ci> v </ci> 
+	    </bvar> 
+	    <ci> mean </ci> 
+	  </lambda> 
+	</math> 
+	<drawFromDistribution xmlns="http://www.sbml.org/sbml/level3/version1/distrib/version1"> 
+	  <listOfDistribInputs> 
+	    <distribInput id="avg" index="0"/> 
+	    <distribInput id="var" index="1"/> 
+	  </listOfDistribInputs> 
+	  <NormalDistribution xmlns="http://uncertml.org/3.0"> 
+	    <mean> avg </mean> 
+	    <variance> var </variance> 
+	  </NormalDistribution> 
+	</drawFromDistribution> 
+      </functionDefinition> 
+      <functionDefinition id="poisson"> 
+	<notes><p>This is a poisson distribution</p>
+	</notes>
+	<annotation>
+	  <copasi>...</copasi>
+	  <ibiosim>...</ibiosim>
+	</annotation>
+	<math xmlns="http://www.w3.org/1998/Math/MathML"> 
+	  <lambda> 
+	    <bvar> 
+	      <ci> rate </ci> 
+	    </bvar> 
+	    <ci> rate </ci> 
+	  </lambda> 
+	</math> 
+	<drawFromDistribution xmlns="http://www.sbml.org/sbml/level3/version1/distrib/version1"> 
+	  <listOfDistribInputs> 
+	    <distribInput id="rate" index="0"/> 
+	  </listOfDistribInputs> 	  
+	  <PoissonDistribution xmlns="http://uncertml.org/3.0"> 
+	    <rate> rate </rate> 
+	  </PoissonDistribution> 
+	</drawFromDistribution> 
+      </functionDefinition> 
+    </listOfFunctionDefinitions>
+    <listOfInitialAssignments> 
+      <initialAssignment symbol="y"> 
+	<math xmlns="http://www.w3.org/1998/Math/MathML"> 
+	  <apply> 
+	    <ci> normal </ci> 
+	    <ci> z </ci> 
+	    <cn> 10 </cn> 
+	  </apply> 
+	</math> 
+      </initialAssignment> 
+      <initialAssignment variable="X">
+	<arrays:listOfDimensions>
+	  <arrays:dimension id="i" size="n" arrayDimension="0"/>
+	</arrays:listOfDimensions>
+	<arrays:listOfIndices>
+	  <arrays:index>
+	    <math xmlns="http://www.w3.org/1998/Math/MathML">
+	      <ci>i</ci>
+	    </math>
+	  </arrays:index>
+	</arrays:listOfIndices>
+	<math xmlns="http://www.w3.org/1998/Math/MathML">
+	  <apply> 
+	    <ci> poisson </ci> 
+	    <ci> z </ci> 
+	    <cn> 10 </cn> 
+	  </apply>
+	</math>
+      </initialAssignment>
+    </listOfInitialAssignments>
+    <listOfParameters>
+      <!-- Set size n=10 -->
+      <parameter id="n" value="10"/>
+      <!-- Set array parameters X[i]=5.7 for all i=1,...,10 -->
+      <parameter id="X" > <!-- parameter X[n] (array of size n=10), each element of the array is initialised by a random value taken from a poisson distribution -->
+	<arrays:listOfDimensions>
+	  <arrays:dimension id="i" size="n" arrayDimension="0">
+	  </arrays:listOfDimensions>
+	</arrays:listOfDimensions>
+      </parameter>
+      <parameter id="y"/> <!-- parameter y, initialised by a random value taken from a normal distribution -->
+    </listOfParameters>
+  </model>
+</sbml>
+    
